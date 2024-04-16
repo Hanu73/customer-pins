@@ -30,7 +30,7 @@
 
               <tr *ngFor="let data of pinsList">
                 <td>{{data.title}}</td>
-                <td><img [src]="data.image" alt="Image 1" class="img-fluid"></td>
+                <td><img [src]="data.file" alt="Image 1" class="img-fluid"></td>
                 <td>{{data?.collaborators[0]}}, {{data?.collaborators[1]}}</td>
                 <td>{{data.privacy}}</td>
               </tr>

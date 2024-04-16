@@ -8,7 +8,7 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-pin-form',
   templateUrl: './pin-form.component.html',
-  styleUrls: ['./pin-form.component.css']
+  styleUrls: ['./pin-form.component.css'],
 })
 export class PinFormComponent implements OnInit {
   pinForm = new FormGroup({
@@ -21,6 +21,8 @@ export class PinFormComponent implements OnInit {
 
   file: File;
   files: File[] = [];
+
+  imageData : string;
 
   constructor(private readonly _storageService : StorageService,
     private readonly _sharedService: SharedService
@@ -56,15 +58,28 @@ export class PinFormComponent implements OnInit {
   }
 
   onDrop(event: DragEvent) {
-    const files = event.dataTransfer.files;
-    this.file = files[0];
-    this.files.push(this.file);
-    this.pinForm.patchValue({
-      file: files[0]
-    })
+    // Converting to base64 and can be stored in local storage
+    const img = event.dataTransfer.files[0];
+    if (img) {
+      this.getBase64(img).then((url: string) => {
+        this.imageData = url;
+        this.pinForm.patchValue({
+          file: this.imageData
+        })
+      });
+    }
+
     event.preventDefault();
   }
 
+  getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
   
   onDragover(event: DragEvent) {
     event.preventDefault();
