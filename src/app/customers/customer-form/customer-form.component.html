@@ -1,1 +1,37 @@
-<p>customer-form works!</p>
+<form [formGroup]="form" (ngSubmit)="createCustomer()">
+    <div class="form-group">
+      <label for="title" class="mb-1">Title <span class="required">*</span></label>
+      <input type="text" class="form-control" id="title" formControlName="title" [class.is-invalid]="f.title.errors && f.title.touched">
+      <div class="invalid-feedback" *ngIf="f.title.errors?.required">Title is required</div>
+    </div>
+  
+    <div class="form-group mt-2">
+      <label for="email" class="mb-1">Email <span class="required">*</span></label>
+      <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="f.email.errors && f.email.touched">
+      <div class="invalid-feedback" *ngIf="f.email.errors?.required">Email is required</div>
+      <div class="invalid-feedback" *ngIf="f.email.errors?.email">Email is invalid</div>
+    </div>
+  
+    <div class="form-group mt-2">
+      <label for="region" class="mb-1">Region <span class="required">*</span></label>
+      <select class="form-select" aria-label="Select Region"  formControlName="region" (change)="getCountriesList($event)">
+        <option selected>Select Region</option>
+        <option *ngFor="let region of regions">{{ region }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="f.region.errors?.required">Region is required</div>
+    </div>
+  
+    <div class="form-group mt-2">
+      <label for="country" class="mb-1">Country <span class="required">*</span></label>
+      <select class="form-select" aria-label="Select country" formControlName="country">
+        <option selected>Select Country</option>
+        <option *ngFor="let country of countries">{{ country.country }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="f.country.errors?.required">Country is required</div>
+    </div>
+  
+    <div class="text-center mt-4 mb-4">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Create Customer</button>
+    </div>
+   
+  </form>

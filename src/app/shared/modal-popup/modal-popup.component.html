@@ -1,0 +1,33 @@
+<div class="popupStyles" *ngIf="showPopup">
+  <div class="row innerModal">
+      <div class="closeIcon mt-2 px-3 py-3">
+        <i class="fa fa-times cursorPointer" (click)="closePopup()"></i>
+      </div>
+    
+    <p *ngIf="modalData.title" class="modal-title">{{ modalData.title }}</p>
+   
+    <!-- Customer Form Table  -->
+
+    <ng-container *ngIf="modalData.type==='customer'">
+      <app-customer-form></app-customer-form>
+    </ng-container>
+
+    <!-- Pin Form Table  -->
+    
+    <ng-container  *ngIf="modalData.type==='pin'">
+      <app-pin-form></app-pin-form>
+    </ng-container>
+   
+    
+    <!-- <div class="modal-footer" *ngIf="modalData.buttonName">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-dismiss="modal"
+      >
+        {{modalData.buttonName}}
+      </button>
+      
+    </div> -->
+  </div>
+</div>

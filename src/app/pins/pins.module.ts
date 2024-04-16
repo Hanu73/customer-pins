@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PinFormComponent } from './pin-form/pin-form.component';
 import { PinListComponent } from './pin-list/pin-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +12,9 @@ import { PinListComponent } from './pin-list/pin-list.component';
     PinListComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [PinFormComponent]
 })
 export class PinsModule { }

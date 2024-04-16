@@ -4,9 +4,9 @@
         <h3 class="tableName">List of pins</h3>
       </div>
       <div class="col-4 text-end">
-        <button type="button" class="btn btn-primary mb-2 cta-width">+ Add Customer</button>
+        <button type="button" class="btn btn-primary mb-2 cta-width" (click)="addCustomer()">+ Add Customer</button>
         <br/>
-        <button type="button" class="btn btn-primary mb-2 cta-width">+ Add Pin</button>
+        <button type="button" class="btn btn-primary mb-2 cta-width" (click)="addPin()">+ Add Pin</button>
       </div>
     </div>
   </div>
@@ -23,11 +23,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Title 1</td>
-                <td><img src="path_to_image" alt="Image 1" class="img-fluid"></td>
-                <td>Collaborator 1, Collaborator 2</td>
-                <td>Public</td>
+
+              <tr *ngIf="pinsList.length === 0">
+                <td colspan="4">No Data</td>
+              </tr>
+
+              <tr *ngFor="let data of pinsList">
+                <td>{{data.title}}</td>
+                <td><img [src]="data.image" alt="Image 1" class="img-fluid"></td>
+                <td>{{data?.collaborators[0]}}, {{data?.collaborators[1]}}</td>
+                <td>{{data.privacy}}</td>
               </tr>
             </tbody>
           </table>
